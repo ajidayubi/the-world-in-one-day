@@ -17,8 +17,11 @@ def main():
     # A plain byte copy: no rendering, no randomness, so every run
     # writes exactly the bytes stored in the repository.
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    shutil.copyfile(os.path.join(HERE, "entry.png"),
-                    os.path.join(OUTPUT_DIR, "entry.png"))
+    src = os.path.join(HERE, "entry.png")
+    dst = os.path.join(OUTPUT_DIR, "entry.png")
+    shutil.copyfile(src, dst)
+    if os.path.getsize(dst) != os.path.getsize(src):
+        raise SystemExit("entry.png copy mismatch")
 
 
 if __name__ == "__main__":
